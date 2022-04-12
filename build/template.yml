@@ -300,7 +300,7 @@ Resources:
                 StackName: !Sub '${Application}-${Environment}'
                 Capabilities: 'CAPABILITY_IAM,CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND'
                 RoleArn: !Sub '${CloudFormationDeployRole.Arn}'
-                TemplatePath: 'CloudFormationArtifact::build/cfn_main_packaged.yml'
+                TemplatePath: 'CloudFormationArtifact::build/template_packaged.yml'
                 TemplateConfiguration: 'CloudFormationArtifact::build/cfn_configuration.json'
       Tags:
         - Key: 'Application'
