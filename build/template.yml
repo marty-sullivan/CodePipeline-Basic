@@ -113,7 +113,6 @@ Resources:
                   - 's3:PutObject'
                 Resource:
                   - !Sub '${BuildBucket.Arn}/*'
-                  - !Sub '${ProductBucket.Arn}/*'
       Tags:
         - Key: 'Application'
           Value: !Sub '${Application}'
@@ -234,8 +233,6 @@ Resources:
                 Resource:
                   - !Sub '${BuildBucket.Arn}'
                   - !Sub '${BuildBucket.Arn}/*'
-                  - !Sub '${ProductBucket.Arn}'
-                  - !Sub '${ProductBucket.Arn}/*'
       Tags:
         - Key: 'Application'
           Value: !Sub '${Application}'
@@ -279,7 +276,7 @@ Resources:
                 - Name: 'SourceArtifact'
               OutputArtifacts:
                 - Name: 'CloudFormationArtifact'
-                - Name: 'ProductArtifact'
+                # - Name: 'ProductArtifact'
               ActionTypeId:
                 Category: 'Build'
                 Owner: 'AWS'
@@ -288,19 +285,6 @@ Resources:
               Configuration:
                 ProjectName: !Sub '${CloudFormationBuildProject}'
                 PrimarySource: 'SourceArtifact'
-        - Name: 'ProductTemplateDeploy'
-          Actions:
-            - Name: 'ProductTemplateDeployAction'
-              InputArtifacts: 
-                - Name: 'ProductArtifact'
-              ActionTypeId: 
-                Category: 'Deploy'
-                Owner: 'AWS'
-                Provider: 'S3'
-                Version: '1'
-              Configuration:
-                BucketName: !Sub '${ProductBucket}'
-                Extract: 'true'
         - Name: 'CloudFormationDeploy'
           Actions:
             - Name: 'CloudFormationDeployAction'

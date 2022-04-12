@@ -48,7 +48,7 @@ then
 fi
 
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query 'Account' --output text)
-# AWS_REGION=$(aws configure get region)
+AWS_REGION=$(aws configure get region)
 STACK_DESCRIPTION=$(aws cloudformation describe-stacks --stack-name $STACK_NAME 2>&1)
 
 if [[ $STACK_DESCRIPTION == *"locate credentials"* || $STACK_DESCRIPTION == *"specify a region"* ]]
@@ -97,6 +97,7 @@ else
       "GitHubRepository=$GITHUB_REPOSITORY" \
       "AlertEmail=$ALERT_EMAIL" \
       "AlertPhone=$ALERT_PHONE" \
+      "PrincipalOrganizationId=$PRINCIPAL_ORG_ID" \
     --tags \
       "Application=$APPLICATION" \
       "Environment=$ENVIRONMENT" \
